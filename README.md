@@ -1,1 +1,1 @@
-Alpinejs + Tailwind starter template
+Music sequencer built with alpinejs,tonejs and tailwind

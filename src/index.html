@@ -15,10 +15,90 @@
     <script src="js/index.js" type="module"></script>
 </head>
 
-<body>
-<div class="text-5xl text-red-700" x-data="{text:'Hello-world'}">
-    <span x-text="text"></span>
+
+<body class="bg-gray-500 p-10">
+
+<div class="flex flex-col items-center" x-data="sequencer()">
+
+
+    <ul class="flex w-full px-1 pt-2 flex-row justify-center mb-5">
+        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t"
+            :class="tab=='drums' ? 'border-b-2 border-blue-400':''">
+            <a
+                    href="#drums" @click="tab='drums'">DRUMS</a></li>
+        <template x-for="(synth,skey) in synths">
+            <li class="px-4 py-2 font-semibold text-gray-800 rounded-t"
+                :class="tab=='synth_'+skey ? 'border-b-2 border-blue-400':''"><a :href="'#synth_'+skey"
+                                                                                 @click="tab='synth_'+skey">SYNTH</a>
+            </li>
+        </template>
+        <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#" @click="addsynth">ADD
+            SYNTH</a>
+        </li>
+    </ul>
+
+    <div class="mb-5">
+        <button @click="start" class="bg-green-200 p-2 rounded-md">Start</button>
+        <button @click="stop" class="bg-red-200 p-2 rounded-md">Stop</button>
+        <input type="number" class="p-2 rounded-md mr-1" x-model="bpm">Bpm
+    </div>
+
+    <div class="bg-gray-200 p-2 w-full rounded-md flex flex-col items-center" x-show="tab == 'drums'">
+        <div>
+            <input type="text" class="p-2 rounded-md" x-model="savename">
+            <button @click="save" class="bg-green-400 p-2 rounded-md">Save</button>
+            <button @click="load" class="bg-yellow-400 p-2 rounded-md">Load</button>
+            <button @click="clear" class="bg-red-400 p-2 rounded-md">Clear</button>
+        </div>
+        <div class="mt-5 ">
+            <template x-for="inst in Object.entries(instruments)">
+                <div class="mb-3 flex flex-row">
+                    <div class="bg-blue-300 p-2 rounded-md w-24 text-center">
+          <span @click="setSolo(inst[0])" class="p-1 rounded-md cursor-pointer"
+                :class="solo === parseInt(inst[0])?'bg-green-200':'bg-gray-200'">S</span>
+                        <span @click="toggleMute(inst[0])" class="bg-gray-200 p-1 rounded-md cursor-pointer"
+                              :class="mutes.includes(parseInt(inst[0]))?'bg-red-200':'bg-gray-200'">M</span>
+
+                        <span x-text="inst[1].replace('.wav','')"></span>
+                    </div>
+                    <template x-for="i in columns">
+                        <div @click="updatecell(i,inst[0])" class="rounded-md p-2 w-10 h-10 ml-3"
+                             :class="highlighted == i-1 ? 'bg-red-400' : (matrix[i-1][inst[0]] ? 'bg-green-400' : i%4 == 1?'bg-gray-300':'bg-white')"></div>
+                    </template>
+                </div>
+
+            </template>
+        </div>
+    </div>
+    <template x-for="(synth,skey) in synths">
+        <div class="bg-gray-200 p-2 w-full rounded-md flex flex-col items-center" x-show="tab == 'synth_'+skey">
+
+            <div class="mt-5">
+                Attack <input @input="reloadsynth(synth)" type="text" x-model="synth.params.envelope.attack">
+                Filter type <input @input="reloadsynth(synth)" type="text" x-model="synth.params.filter.type">
+                Filter freq <input @input="reloadsynth(synth)" type="text" x-model="synth.params.filter.frequency">
+            </div>
+            <div class="mt-5 ">
+                <template x-for="(note,key) in synthnotes">
+                    <div class="mb-3 flex flex-row">
+                        <div class="bg-blue-300 p-2 rounded-md w-24 text-center">
+                            <span x-text="note"></span>
+                        </div>
+                        <template x-for="i in columns">
+                            <div @click="updatesynthcell(i,key,note,skey)" class="rounded-md p-2 w-10 h-10 ml-3"
+                                 :class="highlighted == i-1 ? 'bg-red-400' : (synth.matrix[i-1][key]!==false ? 'bg-green-400' : i%4 == 1?'bg-gray-300':'bg-white')"></div>
+                        </template>
+                    </div>
+
+                </template>
+            </div>
+    </template>
 </div>
+
+
+</div>
+
+
 </body>
 
 </html>
