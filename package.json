@@ -1,0 +1,32 @@
+{
+  "name": "pinewind",
+  "version": "1.0.0",
+  "description": "Alpine.js - Tailwind starter/playground ",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tvdr/pinewind.git"
+  },
+  "keywords": [
+    "alpinejs",
+    "tailwind"
+  ],
+  "author": "Tibor Barta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tvdr/pinewind/issues"
+  },
+  "homepage": "https://github.com/tvdr/pinewind#readme",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.1",
+    "parcel": "^2.0.0-rc.0",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7"
+  },
+  "dependencies": {
+    "alpinejs": "^3.2.3"
+  }
+}
