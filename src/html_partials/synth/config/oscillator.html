@@ -1,0 +1,17 @@
+<div class="font-bold">Oscillator</div>
+<div>
+    <label for="">Type</label>
+    <select @change="reloadsynth(synth)" x-model="synth.params.oscillator.type">
+        <template x-for="type in oscillatorconfig.types">
+            <option :value="type" x-text="type"></option>
+        </template>
+    </select>
+</div>
+<div>
+    <label for="">Detune</label>
+    <input @input="reloadsynth(synth)" x-model="synth.params.oscillator.detune" type="number">
+</div>
+<div>
+    <label for="">Frequency</label>
+    <input @input="reloadsynth(synth)" x-model="synth.params.oscillator.frequency" type="number">
+</div>

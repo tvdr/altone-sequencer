@@ -1,4 +1,5 @@
 import * as Tone from "tone";
+import oscillatorconfig from "./oscillatorconfig";
 
 const synthnotes = [
     'C2', 'D2', 'E2', 'F2', 'G2', 'A2', 'B2',
@@ -55,10 +56,9 @@ export default () => ({
             synth: new Tone.MonoSynth(this.def_synthparams).toDestination()
         }
 
-
     },
 
-    tab: 'drums',
+    tab: 'synth_0',
     columns: 16,
     highlighted: -1,
     bpm: 120,
@@ -68,7 +68,9 @@ export default () => ({
     instruments,
     synthnotes,
     synths,
-
+    oscillatorconfig:{
+        types:oscillatorconfig.types,
+    },
 
     def_synthparams: {
         oscillator: {
@@ -83,7 +85,6 @@ export default () => ({
 
     solo: false,
     mutes: [],
-
 
     start() {
         if (Tone.context.state !== 'running') {

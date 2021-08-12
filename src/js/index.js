@@ -4,7 +4,7 @@ import sequencer from "./sequencer";
 
 window.Alpine = Alpine;
 
-Alpine.data('sequencer', sequencer)
+Alpine.data('sequencer', sequencer);
 
 Alpine.start();
 

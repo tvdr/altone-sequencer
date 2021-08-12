@@ -1,0 +1,14 @@
+<div class="mt-5 ">
+    <template x-for="(note,key) in synthnotes">
+        <div class="mb-3 flex flex-row">
+            <div class="bg-blue-300 p-2 rounded-md w-24 text-center">
+                <span x-text="note"></span>
+            </div>
+            <template x-for="i in columns">
+                <div @click="updatesynthcell(i,key,note,skey)" class="rounded-md p-2 w-10 h-10 ml-3"
+                     :class="highlighted == i-1 ? 'bg-red-400' : (synth.matrix[i-1][key]!==false ? 'bg-green-400' : i%4 == 1?'bg-gray-300':'bg-white')"></div>
+            </template>
+        </div>
+
+    </template>
+</div>

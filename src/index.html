@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>PineWind</title>
+    <title>AlpineToneSequencer</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,7 +16,7 @@
 </head>
 
 
-<body class="bg-gray-500 p-10">
+<body class="bg-gray-500 p-3">
 
 <div class="flex flex-col items-center" x-data="sequencer()">
 
@@ -70,35 +70,17 @@
             </template>
         </div>
     </div>
+
     <template x-for="(synth,skey) in synths">
-        <div class="bg-gray-200 p-2 w-full rounded-md flex flex-col items-center" x-show="tab == 'synth_'+skey">
-
-            <div class="mt-5">
-                Attack <input @input="reloadsynth(synth)" type="text" x-model="synth.params.envelope.attack">
-                Filter type <input @input="reloadsynth(synth)" type="text" x-model="synth.params.filter.type">
-                Filter freq <input @input="reloadsynth(synth)" type="text" x-model="synth.params.filter.frequency">
-            </div>
-            <div class="mt-5 ">
-                <template x-for="(note,key) in synthnotes">
-                    <div class="mb-3 flex flex-row">
-                        <div class="bg-blue-300 p-2 rounded-md w-24 text-center">
-                            <span x-text="note"></span>
-                        </div>
-                        <template x-for="i in columns">
-                            <div @click="updatesynthcell(i,key,note,skey)" class="rounded-md p-2 w-10 h-10 ml-3"
-                                 :class="highlighted == i-1 ? 'bg-red-400' : (synth.matrix[i-1][key]!==false ? 'bg-green-400' : i%4 == 1?'bg-gray-300':'bg-white')"></div>
-                        </template>
-                    </div>
-
-                </template>
-            </div>
+        <div class="bg-gray-200 p-2 w-full rounded-md flex flex-row" x-show="tab == 'synth_'+skey">
+            <module href="/synth/matrix/_main.html"></module>
+            <module href="/synth/config/_main.html"></module>
+        </div>
     </template>
-</div>
-
-
 </div>
 
 
 </body>
 
 </html>
+      

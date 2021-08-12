@@ -1,0 +1,5 @@
+<div class="font-bold">Envelope</div>
+<div>
+    <label for="">Attack <span x-text="synth.params.envelope.attack"></span></label>
+    <input @input="reloadsynth(synth)" type="range" min="0" max="2" step="0.1" x-model="synth.params.envelope.attack">
+</div>

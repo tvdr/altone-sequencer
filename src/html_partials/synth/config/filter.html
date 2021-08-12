@@ -1,0 +1,9 @@
+<div class="font-bold">Filter</div>
+<div>
+  <label for="">Filter type</label>
+  <input @input="reloadsynth(synth)" type="text" x-model="synth.params.filter.type">
+</div>
+<div>
+  <label for="">Filter Freq</label>
+  <input @input="reloadsynth(synth)" type="text" x-model="synth.params.filter.frequency">
+</div>
